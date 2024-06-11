@@ -14,16 +14,17 @@ p = np.zeros((ny, nx))
 p[:, -1] = y
 
 fig = plt.figure(figsize=(11, 7), dpi=100)
-ax = fig.add_subplot(projection='3d')
+ax = fig.add_subplot(projection="3d")
 X, Y = np.meshgrid(x, y)
 
 for n in range(nt):
     pn = p.copy()
-    for j in range(1, ny-1):
-        for i in range(1, nx-1):
-            p[j, i] = (dy**2 * (pn[j, i+1] + pn[j, i-1]) +\
-                       dx**2 * (pn[j+1, i] + pn[j-1, i])) \
-                      / (2 * (dx**2 + dy**2))
+    for j in range(1, ny - 1):
+        for i in range(1, nx - 1):
+            p[j, i] = (
+                dy ** 2 * (pn[j, i + 1] + pn[j, i - 1])
+                + dx ** 2 * (pn[j + 1, i] + pn[j - 1, i])
+            ) / (2 * (dx ** 2 + dy ** 2))
     p[:, 0] = 0
     p[:, -1] = y
     p[0, :] = p[1, :]
@@ -31,6 +32,6 @@ for n in range(nt):
     ax.plot_surface(X, Y, p[:], cmap=plt.cm.coolwarm)
     ax.set_zlim(0, 2)
     ax.view_init(30, 225)
-    plt.pause(.01)
+    plt.pause(0.01)
     ax.cla()
 plt.show()
